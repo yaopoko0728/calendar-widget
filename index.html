@@ -13,14 +13,12 @@
     background: transparent;
   }
 
-  .calendar {
-    border: 2px solid black;
-    border-radius: 12px;
-    padding: 16px;
-    width: 260px;
-    text-align: center;
-    background: white;
-  }
+.calendar {
+  padding: 16px;
+  width: 260px;
+  text-align: center;
+  background: #ede7f6; /* 薄い紫 */
+}
 
   .header {
     display: flex;
@@ -36,7 +34,6 @@
   width: 32px;
   height: 32px;
 
-  border: 2px solid black;
   border-radius: 50%;
 
   display: flex;
@@ -46,6 +43,10 @@
   user-select: none;
 }
 
+  .btn:hover {
+  background: rgba(0,0,0,0.05);
+}
+  
   .grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
