@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Calendar Widget</title>
+<style>
+  body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: transparent;
+  }
+
+  .calendar {
+    border: 2px solid black;
+    border-radius: 12px;
+    padding: 16px;
+    width: 260px;
+    text-align: center;
+    background: white;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    cursor: pointer;
+    font-size: 18px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+
+  .day {
+    padding: 6px;
+    border-radius: 6px;
+  }
+
+  .today {
+    background: #2ec4b6; /* ← 青緑 */
+    color: white;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<div class="calendar">
+  <div class="header">
+    <span class="btn" onclick="changeMonth(-1)">←</span>
+    <span id="monthYear"></span>
+    <span class="btn" onclick="changeMonth(1)">→</span>
+  </div>
+  <div class="grid" id="calendar"></div>
+</div>
+
+<script>
+  let currentDate = new Date();
+
+  function renderCalendar() {
+    const calendar = document.getElementById("calendar");
+    const monthYear = document.getElementById("monthYear");
+
+    calendar.innerHTML = "";
+
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+
+    monthYear.textContent = `${year}年 ${month + 1}月`;
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const lastDate = new Date(year, month + 1, 0).getDate();
+
+    const today = new Date();
+
+    for (let i = 0; i < firstDay; i++) {
+      calendar.innerHTML += `<div></div>`;
+    }
+
+    for (let day = 1; day <= lastDate; day++) {
+      let isToday =
+        day === today.getDate() &&
+        month === today.getMonth() &&
+        year === today.getFullYear();
+
+      calendar.innerHTML += `
+        <div class="day ${isToday ? "today" : ""}">
+          ${day}
+        </div>
+      `;
+    }
+  }
+
+  function changeMonth(offset) {
+    currentDate.setMonth(currentDate.getMonth() + offset);
+    renderCalendar();
+  }
+
+  renderCalendar();
+</script>
+
+</body>
+</html>
